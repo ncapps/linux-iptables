@@ -120,8 +120,10 @@ Packet mangling involves making changes to packet header fields (such as network
 -s # Source address range
 -d # Desintation address range
 
--i # Input interface in (if in ends with +, any interface having a name that starts with in will match).
--o # Input interface out (if out ends with +, any interface having a name that starts with out will match).
+-i # Input interface in (if in ends with +, 
+   # any interface having a name that starts with in will match).
+-o # Input interface out (if out ends with +, 
+   # any interface having a name that starts with out will match).
 
 -p # protocol name (i.e. tcp, udp, icmp)
 --dport # Match when the TCP destination port number is equal to port
@@ -133,7 +135,8 @@ Packet mangling involves making changes to packet header fields (such as network
 -D # Delete rule from chain
 -R # Replaces the rule at position index of chain with the new rule. (chain index rule)
 
--P # Sets the default policy of the built-in chain to target. Applies to built-in chains and targets only.
+-P # Sets the default policy of the built-in chain to target. 
+   # Applies to built-in chains and targets only.
 -N # Creates a new user-defined chain.
 
 --to-source # Change the source IP address field of the packet to the addresses given
@@ -142,7 +145,9 @@ Packet mangling involves making changes to packet header fields (such as network
 -L # List the rules in a chain or all chains
 -S # Print the rules in a chain or all chains
 -c # Packet and byte counter
---line-numbers # When combined with the -L subcommand, displays numbers for the rules in each chain, so you can refer to the rules by index when inserting rules into (via -I) or deleting rules from (via -D) a chain.
+--line-numbers # When combined with the -L subcommand, displays numbers for the rules 
+               # in each chain, so you can refer to the rules by index when inserting
+               # rules into (via -I) or deleting rules from (via -D) a chain.
 ```
 
 **Reviewing rules**
