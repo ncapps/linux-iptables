@@ -148,13 +148,10 @@ Packet mangling involves making changes to packet header fields (such as network
 **Reviewing rules**
 ```sh
 # List chains and their rx/tx count
-iptables -L -v
+iptables -L -n -v --line-numbers | less
 
 # List rules by chain
-sudo iptables -S
-
-# dmsg for kernel logs 
-# TODO read this: https://www.opsist.com/blog/2015/08/11/how-do-i-see-what-iptables-is-doing.html
+iptables -S | less
 
 ```
 
