@@ -88,6 +88,31 @@ Packet mangling involves making changes to packet header fields (such as network
 ### Load balancing
 - Load balancing involves distributing connections across a group of servers so that higher total throughput can be achieved. One way to implement simple load balancing is to set up port forwarding so that the destination address is selected in a round-robin fashion from a list of possible destinations.
 
+## Connection Tracking
+- iptables associates packets with the logical connections they belong to
+- The iptables connection tracking logic allows plug-in modules to help identify new connections that are related to existing connections. You need to use these plug-ins if you want to make multiconnection protocols work right across your gateway/firewall
+- To use these, you need to run the modprobe command to install the kernel module
+
+## Network Address Translation (NAT)
+- NAT is the modification of the addresses and/or ports of network packets as they pass through a computer.
+- Network address translation requires connection tracking, and connection tracking only works when the computer sees all the packets. 
+- If your firewall setup involves more than one computer, take care not to break connection tracking.
+- The `nat` built-in table is intended specifically for use in NAT applications.
+
+### Source NAT and Masquerading
+- Source NAT (SNAT) is used to share a single Internet connection among computers on a network.
+- The computer attached to the Internet acts as a gateway and uses SNAT (along with connection tracking) to rewrite packets for connections between the Internet and the internal network.
+- The source address of outbound packets is replaced with the static IP address of the gateway’s Internet connection
+- Since SNAT entails modifying the source addresses and/or ports of packets just before they leave the kernel, it is performed through the `POSTROUTING` chain of the `nat` table.
+- The `SNAT` target extension is intended for situations where the gateway computer has a static IP address
+- The `MASQUERADE` target extension is intended for situations where the gateway computer has a dynamic IP address.
+- The `MASQUERADE` target extension provides additional logic that deals with the possibility that the network interface could go off line and come back up again with a different address 
+
+### Destination NAT
+- Destination NAT (DNAT) exposes specific services on an internal network to the outside world without linking the internal computers directly to the Internet.
+- As long as there is no more than one service to be exposed on any given port, only one Internet connection (public IP address) is required.
+- The gateway computer redirects connections to the specified ports to the designated internal computers and ports and arranges for return traffic to go back to the original address outside the network.
+
 ## Frequently used arguments
 ```sh
 -t # Table (filter, nat, or mangle)
